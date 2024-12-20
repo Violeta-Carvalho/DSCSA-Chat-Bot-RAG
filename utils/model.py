@@ -9,26 +9,27 @@ import utils.globals as globals
 def get_model():
     cached_llm = Ollama(model="llama3.2")
 
-    print("Loading Vector Store")
     vector_store = Chroma(
         persist_directory=globals.db_path, embedding_function=globals.embedding
     )
-    print("Creating Retriever")
     retriever = vector_store.as_retriever(
         search_type="similarity_score_threshold",
-        search_kwargs={"k": 20, "score_threshold": 0.1},
+        search_kwargs={"k": 5, "score_threshold": 0.3},
     )
     raw_prompt = PromptTemplate.from_template(
         """
-        <s>[INST] You are a assistant about the DSCSA law from FDA about RX Products. If you do not have an answer from the provided information, say so.[/INST] </s>
-        [INST]  {input}
-                Context: {context}
-                Answer: 
-        [/INST]
-    """
+            <s>[INST] You are a friendly and knowledgeable assistant. Use the following context and chat history to provide accurate and engaging responses to the user's queries. 
+            If you cannot answer based on the provided context, politely inform the user. Keep your tone professional but conversational.
+            The user did not send you the context, nor the chat history, do not talk to them about the context.
+            [/INST]</s>
+            [INST]  
+            Chat History: {history}
+            User Input: {input}
+            Context: {context}
+            Answer: 
+            [/INST]
+        """
     )
-    print("Creating Document Chain")
     document_chain = create_stuff_documents_chain(cached_llm, raw_prompt)
-    print("Creating Final Chain")
     chain = create_retrieval_chain(retriever, document_chain)
     return chain

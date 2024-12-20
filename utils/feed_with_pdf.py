@@ -4,7 +4,7 @@ from langchain_community.vectorstores import Chroma
 import globals as globals
 
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=100, chunk_overlap=20, length_function=len, is_separator_regex=False
+    chunk_size=300, chunk_overlap=100, length_function=len, is_separator_regex=False
 )
 
 

@@ -19,7 +19,15 @@ if prompt := st.chat_input("Do you need any help with DCDSA?"):
     typing_placeholder = st.empty()
     typing_placeholder.markdown("**DSCSA Bot is typing...**")
 
-    response = chain.invoke({"input": prompt})
+    history = "\n".join(
+        [
+            f"{msg['role'].capitalize()}: {msg['content']}"
+            for msg in st.session_state.messages
+            if msg["role"] in ["user", "assistant"]
+        ]
+    )
+
+    response = chain.invoke({"input": {prompt}, "history": history})
 
     typing_placeholder.empty()
 
