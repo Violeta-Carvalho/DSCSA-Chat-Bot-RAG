@@ -1,0 +1,7 @@
+langchain
+langchain_community
+fastembed
+pdfplumber
+chromadb
+streamlit
+streamlit-pdf-viewer
