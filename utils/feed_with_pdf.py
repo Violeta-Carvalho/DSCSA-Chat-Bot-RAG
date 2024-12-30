@@ -9,12 +9,15 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 
 def feed_with_pdfs():
-    loader = PDFPlumberLoader(globals.pdf_file)
-    docs = loader.load_and_split()
-    chunks = text_splitter.split_documents(docs)
-    Chroma.from_documents(
-        documents=chunks, embedding=globals.embedding, persist_directory=globals.db_path
-    )
+    for pdf_file in globals.pdf_files:
+        loader = PDFPlumberLoader(pdf_file)
+        docs = loader.load_and_split()
+        chunks = text_splitter.split_documents(docs)
+        Chroma.from_documents(
+            documents=chunks,
+            embedding=globals.embedding,
+            persist_directory=globals.db_path,
+        )
 
 
 feed_with_pdfs()

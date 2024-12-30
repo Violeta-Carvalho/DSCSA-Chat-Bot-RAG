@@ -17,6 +17,14 @@ ollama pull llama3.2
 pip install -r requirements.txt
 ```
 
+# Adding Documents to AI
+
+To add new documents to the AI, you just need to add the PDF under `pdfs` folder, and then, on `utils/globals.py`, add the file path as `pdfs/<FILE NAME>` into the `pdf_files` variable. Finally, all you need to do is run:
+
+```
+python utils/feed_with_pdf.py
+```
+
 # Running
 
 To run it, you need Ollama running in one terminal:
