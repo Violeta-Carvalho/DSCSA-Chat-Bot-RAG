@@ -3,6 +3,7 @@ from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_community.vectorstores import Chroma
 import globals as globals
 
+
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=300, chunk_overlap=100, length_function=len, is_separator_regex=False
 )

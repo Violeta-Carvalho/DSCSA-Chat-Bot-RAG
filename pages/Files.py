@@ -2,8 +2,10 @@ import streamlit as st
 from streamlit_pdf_viewer import pdf_viewer
 import utils.globals as globals
 
+
 st.title("PDF Files")
 st.write("Below are all the files that the Bot is using.")
+
 
 for pdf_file in globals.pdf_files:
     st.subheader(pdf_file)

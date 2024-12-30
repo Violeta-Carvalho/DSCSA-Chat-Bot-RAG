@@ -31,6 +31,7 @@ def get_model():
             [/INST]
         """
     )
+
     document_chain = create_stuff_documents_chain(cached_llm, raw_prompt)
     chain = create_retrieval_chain(retriever, document_chain)
     return chain
